@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Screening ML System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="main-container">
+
+    <div class="card">
+        <h1>Resume Screening ML System</h1>
+        <p class="subtitle">Upload your resume to classify into category</p>
+
+        <form action="/predict" method="POST" enctype="multipart/form-data">
+            <input type="file" name="resume" required>
+            <button type="submit">Upload & Predict</button>
+        </form>
+    </div>
+
+    {% if prediction %}
+    <div class="result-card">
+
+        <h2>Prediction Result</h2>
+
+        <div class="result-box">
+            <p><strong>Category:</strong> {{ prediction }}</p>
+            <p><strong>Confidence:</strong> {{ confidence }} %</p>
+        </div>
+
+        <h3>Extracted Skills</h3>
+        <div class="skills">
+            {% for skill in skills %}
+                <span class="skill-badge">{{ skill }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="extra-info">
+    
+            <p><strong>Suggestion:</strong> {{ suggestion }}</p>
+        </div>
+
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
